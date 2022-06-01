@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import type { SkiaClockValue } from "@shopify/react-native-skia";
+import type { Size, SkiaClockValue } from "@shopify/react-native-skia";
 import {
   Canvas,
   Path,
@@ -22,11 +22,6 @@ const palette = [
   "#cf61da",
   "#dacf61",
 ];
-
-interface Size {
-  width: number;
-  height: number;
-}
 
 interface Point {
   x: number;

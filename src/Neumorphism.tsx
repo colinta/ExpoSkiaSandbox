@@ -31,13 +31,11 @@ const Theme = {
 };
 
 function rgb([r, g, b]: RGB) {
-  return `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
+  return `rgb(${r}, ${g}, ${b})`;
 }
 
 function rgba([r, g, b, a]: RGBA | RGB, a0?: number) {
-  return `rgba(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)}, ${
-    a0 ?? a
-  })`;
+  return `rgba(${r}, ${g}, ${b}, ${a0 ?? a})`;
 }
 
 function rgbMix(normal: number, color0: RGB | RGBA, color1: RGB | RGBA) {
@@ -67,14 +65,16 @@ export default function Neumorphism() {
   );
 }
 
-const { width: screenWidth } = Dimensions.get("window");
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 const PADDING = 8;
 const width = screenWidth - PADDING * 2;
-const x = screenWidth - PADDING * 2 - width;
-const y = 0;
+const height = screenHeight / 2;
+const x = PADDING;
+const y = (screenHeight - height) / 2;
 
-const FRAME = rect(0, 0, 48, 24);
-const border = rrect(FRAME, 12, 12);
+const FRAME_SRC = rect(0, 0, 48, 24);
+const FRAME_DST = rect(x, y, width, height);
+const border = rrect(FRAME_SRC, 12, 12);
 const container = rrect(rect(1, 1, 46, 22), 12, 12);
 const dot = rrect(rect(6, 6, 12, 12), 12, 12);
 const dotRadius = (dot.rect.width + dot.rect.height) / 4;
@@ -97,7 +97,7 @@ const Switch = ({ pressed }: SwitchProps) => {
   }, [pressed]);
 
   return (
-    <FitBox src={FRAME} dst={rect(x, y, width, width * 2)}>
+    <FitBox src={FRAME_SRC} dst={FRAME_DST}>
       <Box box={border} color={rgb(Theme.whiteBackground)}>
         <BoxShadow dx={-1} dy={-1} blur={3} color="white" />
         <BoxShadow

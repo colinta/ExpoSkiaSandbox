@@ -1,13 +1,9 @@
 import React, { useState } from "react";
+import type { Size } from "@shopify/react-native-skia";
 import { View, Button } from "react-native";
 import Circles from "./Circles";
 import Mesh from "./Mesh";
 import Neumorphism from "./Neumorphism";
-
-type Size = {
-  width: number;
-  height: number;
-};
 
 type Show = "Circles" | "Mesh" | "Neumorphism";
 

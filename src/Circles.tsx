@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import type { SkiaValue } from "@shopify/react-native-skia";
+import type { Size, SkiaMutableValue } from "@shopify/react-native-skia";
 import {
   Group,
   Canvas,
@@ -10,11 +10,6 @@ import {
   runTiming,
 } from "@shopify/react-native-skia";
 
-type Size = {
-  width: number;
-  height: number;
-};
-
 type Props = {
   size: Size;
 };
@@ -23,7 +18,10 @@ function randIn(lower: number, upper: number) {
   return Math.round(lower + Math.random() * (upper - lower));
 }
 
-function startAnimation(value: SkiaValue<number>, randColor: () => number) {
+function startAnimation(
+  value: SkiaMutableValue<number>,
+  randColor: () => number
+) {
   runTiming(value, randColor(), { duration: randIn(2000, 4000) }, () => {
     startAnimation(value, randColor);
   });
@@ -46,7 +44,7 @@ function useRGB(randColor: () => number) {
   );
 }
 
-export default function Playground({ size }: Props) {
+export default function Circles({ size }: Props) {
   const { width, height } = size;
   const offset = 50;
   const cx = width / 2;
